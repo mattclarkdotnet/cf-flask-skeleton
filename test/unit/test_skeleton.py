@@ -1,7 +1,7 @@
 import unittest
 import skeleton.server
 
-class TestBasics(unittest.TestCase):
+class TestTrivial(unittest.TestCase):
     def test_two_times_three(self):
         self.assertEqual(skeleton.server.testable_func(2, 3), 6)
 
@@ -10,3 +10,11 @@ class TestBasics(unittest.TestCase):
 
     def test_not_for_numbers(self):
         self.assertRaises(TypeError, skeleton.server.testable_func, 'a', 'b')
+
+class TestBones(unittest.TestCase):
+    def setUp(self):
+        self.app = skeleton.server.app.test_client()
+
+    def test_bones_exist(self):
+        response = self.app.get('/')
+        self.assertIn('bones', response.get_data())
