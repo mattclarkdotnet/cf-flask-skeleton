@@ -50,7 +50,7 @@ If you are not already logged in to a Cloud Foundry platform, do it now:
     
 And finally push the app:
 
-    $ cf push
+    $ cf push -f manifest-development.yml
     
 
     
