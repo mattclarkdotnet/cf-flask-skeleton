@@ -1,0 +1,55 @@
+# A minimal Flask app for deployment to Cloud Foundry
+
+While deploying to Cloud Foundry is incredibly easy once you get going, there are a few little gotchas sometimes.  
+This project contains files and scripts to get up and running with a basic Flask app as quickly as possible.  Out of 
+the box the skeleton app provides:
+
+* a Flask app in a subdirectory with an __init__.py for Python 2 compatibility
+* example unit tests
+* all settings controlled though environment variables alone
+* separate application log debug and flask debug settings
+* a CF manifest
+* a sample travis CI setup file
+* a setup script to:
+  * set up a python 3 virtual environment correctly
+  * create a 'runtime.txt' so that the CF buildpack uses the same python version as the virtualenv
+  * install dependencies
+
+
+Begin by checking out the repository
+
+    $ git clone http://blah
+    $ cd cf-flask-skeleton
+
+Then run the setup script to create a python 3 virtual environment, install depenedencies, and create a 'runtime.txt': 
+  
+    $ ./setup_env.sh
+    
+Check that the app works correctly locally:
+
+    $ source env_local
+    $ ./runlocal.sh &
+    $ curl http://$LOCAL_IP:$LOCAL_PORT/
+    <!DOCTYPE html>
+    <html>
+    <head lang="en">
+        <meta charset="utf-8">
+        <title>Skeleton</title>
+        <link rel="stylesheet" href="/static/skeleton.css">
+    </head>
+    <body>
+    Just the bones
+    </body>
+    </html>
+    $ kill $!
+    
+If you are not already logged in to a Cloud Foundry platform, do it now:
+
+    $ cf login
+    
+And finally push the app:
+
+    $ cf push
+    
+
+    

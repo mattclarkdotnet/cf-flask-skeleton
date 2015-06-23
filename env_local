@@ -1,0 +1,6 @@
+# use 'source env_local' to load these settings
+export FLASK_DEBUG=1
+export APP_DEBUG=1
+export GUNICORN_WORKERS=4
+export LOCAL_IP=0.0.0.0
+export LOCAL_PORT=5002

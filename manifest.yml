@@ -1,0 +1,9 @@
+---
+applications:
+- name: skeleton
+  memory: 192M
+  host: skeleton-dev
+  instances: 1
+  command: gunicorn -w 4 skeleton.server:app
+  env:
+    GUNICORN_WORKERS: 4
