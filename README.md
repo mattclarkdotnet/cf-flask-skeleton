@@ -4,7 +4,7 @@ While deploying to Cloud Foundry is incredibly easy once you get going, there ar
 This project contains files and scripts to get up and running with a basic Flask app as quickly as possible.  Out of 
 the box the skeleton app provides:
 
-* a Flask app in a subdirectory with an __init__.py for Python 2 compatibility
+* a Flask app in a subdirectory with an \_\_init\_\_.py for Python 2 compatibility
 * example unit tests
 * all settings controlled though environment variables alone
 * separate application log debug and flask debug settings
@@ -18,7 +18,7 @@ the box the skeleton app provides:
 
 Begin by checking out the repository
 
-    $ git clone http://blah
+    $ git clone https://github.com/mattclarkdotnet/cf-flask-skeleton.git
     $ cd cf-flask-skeleton
 
 Then run the setup script to create a python 3 virtual environment, install depenedencies, and create a 'runtime.txt': 
