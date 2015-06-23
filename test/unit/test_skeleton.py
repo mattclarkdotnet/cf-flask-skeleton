@@ -17,8 +17,10 @@ class TestBones(unittest.TestCase):
 
     def test_bones_exist(self):
         response = self.app.get('/')
-        self.assertNotEqual(response.get_data().find('bones'), -1)
+        body = str(response.get_data())
+        self.assertIn('bones', body)
 
     def test_flesh_does_not_exist(self):
         response = self.app.get('/')
-        self.assertTrue('flesh' in str(response.get_data()))
+        body = str(response.get_data())
+        self.assertNotIn(u'flesh', body)
