@@ -1,6 +1,6 @@
 ---
 inherit: manifest-base.yml
 applications:
-- name: skeleton
-  space: production
-  host: skeleton-prod
+ - name: skeleton
+   space: production
+   host: skeleton-prod

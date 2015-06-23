@@ -1,5 +1,4 @@
 ---
-path: .
 applications:
 - name: skeleton
   memory: 192M

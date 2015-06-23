@@ -21,10 +21,9 @@ Begin by checking out the repository
     $ git clone https://github.com/mattclarkdotnet/cf-flask-skeleton.git
     $ cd cf-flask-skeleton
 
-Then run the setup scripts to create a python 3 virtual environment, install depenedencies, and create a 'runtime.txt': 
+Then run the setup script to create a python 3 virtual environment and install dependencies:
   
     $ ./setup_venv.sh
-    $ ./setup_runtime.sh
     
 Check that the app works correctly locally:
 
@@ -48,6 +47,10 @@ If you are not already logged in to a Cloud Foundry platform, do it now:
 
     $ cf login
     
+Make sure CF knows what Python runtime you want to use by creating a 'runtime.txt' file:
+
+    $ ./setup_runtime.sh
+
 And finally push the app:
 
     $ cf push -f manifest-development.yml
