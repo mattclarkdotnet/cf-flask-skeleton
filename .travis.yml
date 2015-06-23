@@ -5,14 +5,16 @@ python:
 install: pip install -r requirements.txt
 script: nosetests test/unit
 before_deploy:
-- ./setup_runtime.sh
+- "./setup_runtime.sh"
 - ln -s manifest-production.yml manifest.yml
 deploy:
-  edge: true
-  provider: cloudfoundry
+  provider:
+    provider: cloudfoundry
   api: https://api.run.pivotal.io
-  organization: mattclark.net
-  space: production
   username: matt@mattclark.net
   password:
-    secure: IqldY78gjzb7cAX22J2Qi50NoMK/WOom30ciOi3s1ZkC5eYu1bh/txFH1aK2XfjX/B6Co3CvD/XC/S/51K1IuqVbJXxhUhdtpIreCfzeeETyPBDeEwTAPWpn+b+LDd8pToefLHqYXQLszO76uIItYyuZkf/6Ra2Rwh+C/G52YqJ4GYOqp7Dw9PDW7/5/FFIRS9wECUNmBGdGTzksFCRv0CRTrGqzRB1oVy6MC5Xb0BkmP+1xr1gr1OxBoxhYy3fDL+AViVyzeSlCf+46bxaEIrFnDIiCrykQPPetqwMCDt5Ohu0d5jDfXd4cr4fRDvqooUdiPsnG4gdhxgZbNor2cdcL1nB42Lp2YW6BM4+w1b+l+xSfMkczdpKlSC12YDdm53Odv12Con+53/vhTjp9Z9uc6/AcJktrWXEzs3UC8PpvdhlDmobGhDgfrOPNXeMLV6dDmbnIR2iIIXCLZTtJZugNLsofFGwwl2em55j7l60NAliVhj5RmNTcoAs8rk9JDnMdgJVFnicJ5W+8vIz0B9IgGwmJ6YYoRjMrCkRB4e5CvUnBXxxaCa756V/1Ek+JaLv0zRO4LiMMZ4XA1UWJ7CqdNyt+T+2m6HLIkhSx7+6sg2DloB9AYH6a0MFGxXvBd4F8932en49X53+6IxABmPE0Jv4Pcf4oBlsR4mNdDa0=
+    secure: D3OrN9+nuPkcaAZYn2CXJ+zgbNiyiMHBvjS76untI56B6BZvtDisHCV62WrBlO4wv6h8E0zEl7hYUr8SI9xkcrfOSL+fVeCCvXr+AZwu3nrE4ISXVTnIkd74mOzyumVZv6gX5GeDBQ/CofeeRUw2RvqcOuVQDNicwo9bTG91JVVoth7J17ZKm9MwE+fWl3WTqGiYTpkj+kX+fGe4k1MuEPrzTrCV19AKwmM8cD0Q27TrAV4wy4YIP4lXWubqT3sDqDwR9XHppUTkO0rDOfzRE9HukpFikCGrRkHKK0VvEUAtqVxjcfSS98+KUUNYbndr2+cEMEy4DjLVdb/+xfmd4vIhz32xZqf89RvbQHHmL2ERER363cvvR6RMv1ueFlTYQrD0Xie84Ct+8FN0nFnJ7X9J5qdHclkkkLgFoqHnC8ba65ZQvfC+7hXaXXaqc4lZ0OD+OQXx6klB+wgis1CB7StJCMo6O6rLMRhXhxGXVlCqSBNMxJlR5IzaKV01oTBRa8g9qvOe4zJKa0/rwLZVo3dNpGg3/juYqyJh8OUnO2Mv3a2PW0GTuoa0bUT4tTwna5wa6nax+DGp4C9jsOk+qMX0zB/SX3KFRXbopfoJi6IXt1ta9dytcUJQm9MgQmicgqVFF43mYwkeRy4edSnzzF+mwjgyyqXl7lITj5buda0=
+  organization: mattclark.net
+  space: mattclark.net
+  on:
+    repo: mattclarkdotnet/cf-flask-skeleton
