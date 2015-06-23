@@ -21,4 +21,4 @@ class TestBones(unittest.TestCase):
 
     def test_flesh_does_not_exist(self):
         response = self.app.get('/')
-        self.assertEqual(response.get_data().find('flesh'), -1)
+        self.assertTrue('flesh' in str(response.get_data()))

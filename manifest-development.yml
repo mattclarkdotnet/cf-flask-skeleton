@@ -1,7 +1,7 @@
 ---
 inherit: manifest-base.yml
 applications:
- - name: skeleton
+ - name: skeleton-dev
    space: development
    host: skeleton-dev
    env:
