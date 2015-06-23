@@ -1,6 +1,18 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
-install: "pip install -r requirements.txt"
+- '2.7'
+- '3.4'
+install: pip install -r requirements.txt
 script: nosetests test/unit
+before_deploy:
+- ./setup_runtime.sh
+- ln -s manifest-production.yml manifest.yml
+deploy:
+  edge: true
+  provider: cloudfoundry
+  api: https://api.run.pivotal.io
+  organization: mattclark.net
+  space: production
+  username: matt@mattclark.net
+  password:
+    secure: IqldY78gjzb7cAX22J2Qi50NoMK/WOom30ciOi3s1ZkC5eYu1bh/txFH1aK2XfjX/B6Co3CvD/XC/S/51K1IuqVbJXxhUhdtpIreCfzeeETyPBDeEwTAPWpn+b+LDd8pToefLHqYXQLszO76uIItYyuZkf/6Ra2Rwh+C/G52YqJ4GYOqp7Dw9PDW7/5/FFIRS9wECUNmBGdGTzksFCRv0CRTrGqzRB1oVy6MC5Xb0BkmP+1xr1gr1OxBoxhYy3fDL+AViVyzeSlCf+46bxaEIrFnDIiCrykQPPetqwMCDt5Ohu0d5jDfXd4cr4fRDvqooUdiPsnG4gdhxgZbNor2cdcL1nB42Lp2YW6BM4+w1b+l+xSfMkczdpKlSC12YDdm53Odv12Con+53/vhTjp9Z9uc6/AcJktrWXEzs3UC8PpvdhlDmobGhDgfrOPNXeMLV6dDmbnIR2iIIXCLZTtJZugNLsofFGwwl2em55j7l60NAliVhj5RmNTcoAs8rk9JDnMdgJVFnicJ5W+8vIz0B9IgGwmJ6YYoRjMrCkRB4e5CvUnBXxxaCa756V/1Ek+JaLv0zRO4LiMMZ4XA1UWJ7CqdNyt+T+2m6HLIkhSx7+6sg2DloB9AYH6a0MFGxXvBd4F8932en49X53+6IxABmPE0Jv4Pcf4oBlsR4mNdDa0=

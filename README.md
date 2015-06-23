@@ -9,8 +9,8 @@ the box the skeleton app provides:
 * all settings controlled though environment variables alone
 * separate application log debug and flask debug settings
 * a CF manifest
-* a sample travis CI setup file
-* a setup script to:
+* Travis CI test and deployment integration
+* setup scripts to:
   * set up a python 3 virtual environment correctly
   * create a 'runtime.txt' so that the CF buildpack uses the same python version as the virtualenv
   * install dependencies
@@ -21,9 +21,10 @@ Begin by checking out the repository
     $ git clone https://github.com/mattclarkdotnet/cf-flask-skeleton.git
     $ cd cf-flask-skeleton
 
-Then run the setup script to create a python 3 virtual environment, install depenedencies, and create a 'runtime.txt': 
+Then run the setup scripts to create a python 3 virtual environment, install depenedencies, and create a 'runtime.txt': 
   
-    $ ./setup_env.sh
+    $ ./setup_venv.sh
+    $ ./setup_runtime.sh
     
 Check that the app works correctly locally:
 
