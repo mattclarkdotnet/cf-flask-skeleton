@@ -1,5 +1,6 @@
 language: python
 sudo: required
+edge: true
 python:
 - '2.7'
 - '3.4'

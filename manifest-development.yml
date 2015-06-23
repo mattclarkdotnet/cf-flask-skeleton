@@ -3,3 +3,5 @@ inherit: manifest-base.yml
 applications:
 - name: skeleton
   host: skeleton-dev
+  env:
+    APP_DEBUG: 1
