@@ -1,8 +1,6 @@
 ---
-applications:
-- name: skeleton
-  memory: 192M
-  instances: 1
-  command: gunicorn -w 4 skeleton.server:app
-  env:
-    GUNICORN_WORKERS: 4
+memory: 192M
+instances: 1
+command: gunicorn -w 4 skeleton.server:app
+env:
+ GUNICORN_WORKERS: 4
