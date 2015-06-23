@@ -1,6 +1,5 @@
 language: python
 sudo: required
-edge: true
 python:
 - '2.7'
 - '3.4'
@@ -10,6 +9,7 @@ before_deploy:
 - "./setup_runtime.sh"
 - ln -s manifest-production.yml manifest.yml
 deploy:
+  edge: true
   provider:
     provider: cloudfoundry
   api: https://api.run.pivotal.io
