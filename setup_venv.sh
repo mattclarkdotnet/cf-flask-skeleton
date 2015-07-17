@@ -2,7 +2,7 @@
 
 PY3=`which python3`
 PY2=`which python2`
-if [[ $PY3 ]]; then
+if [[ $PY3 != '' ]]; then
     PY=$PY3
 else
     PY=$PY2

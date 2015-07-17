@@ -25,7 +25,7 @@ Then run the setup script to create a python 3 virtual environment and install d
   
     $ ./setup_venv.sh
     
-Start the app:
+Switch to the newly created virtual environment and run the unit tests:
 
     $ workon cf-flask-skeleton
     $ source env_local
@@ -35,10 +35,14 @@ Start the app:
     Ran 5 tests in 0.151s
 
     OK
+
+Start the app:
+
     $ ./runlocal.sh
     
 And in a separate terminal check that it's responding correctly:
 
+    $ source env_local
     $ curl http://$LOCAL_IP:$LOCAL_PORT/
     <!DOCTYPE html>
     <html>
@@ -51,7 +55,8 @@ And in a separate terminal check that it's responding correctly:
     Just the bones
     </body>
     </html>
-       
+    $
+           
 If you are not already logged in to a Cloud Foundry platform, do it now:
 
     $ cf login
