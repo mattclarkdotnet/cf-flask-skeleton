@@ -14,6 +14,8 @@ While deploying to Cloud Foundry is incredibly easy once you get going it's not 
 
 ## Quick start
 
+_IMPORTANT: OS X users must install a more recent Python._  Cloud Foundry supports only the current and previous two minor python versions, so for python 2.7 only 2.7.8 2.7.9 and 2.7.10 are supported.  Since OS X still, bafflingly, comes with python 2.7.6, you need to install a more recent version, preferably Python 3.4.
+
 Begin by checking out the repository
 
     $ git clone https://github.com/mattclarkdotnet/cf-flask-skeleton.git
@@ -23,8 +25,9 @@ Then run the setup script to create a python 3 virtual environment and install d
   
     $ ./setup_venv.sh
     
-Check that the app works correctly locally:
+Start the app:
 
+    $ workon cf-flask-skeleton
     $ source env_local
     $ nosetests test/unit
     .....
@@ -32,7 +35,10 @@ Check that the app works correctly locally:
     Ran 5 tests in 0.151s
 
     OK
-    $ ./runlocal.sh &
+    $ ./runlocal.sh
+    
+And in a separate terminal check that it's responding correctly:
+
     $ curl http://$LOCAL_IP:$LOCAL_PORT/
     <!DOCTYPE html>
     <html>
@@ -45,8 +51,7 @@ Check that the app works correctly locally:
     Just the bones
     </body>
     </html>
-    $ kill $!
-    
+       
 If you are not already logged in to a Cloud Foundry platform, do it now:
 
     $ cf login
