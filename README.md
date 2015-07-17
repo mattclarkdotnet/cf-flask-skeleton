@@ -1,4 +1,4 @@
-# A skeleton Flask app for continuous deployment to Cloud Foundry using Travis
+# A skeleton Flask app for deployment to Cloud Foundry using Travis
 
 While deploying to Cloud Foundry is incredibly easy once you get going it's not always so easy to get everything glued together.  This project contains files and scripts to get up and running with a basic Flask app as quickly as possible.  Out of the box the skeleton provides:
 

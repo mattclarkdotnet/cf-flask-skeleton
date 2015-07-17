@@ -1,4 +1,6 @@
 # use 'source env_local' to load these settings
+export CF_APP_NAME_DEV=skeleton-dev
+export CF_APP_NAME_PROD=skeleton-prod
 export FLASK_DEBUG=1
 export APP_DEBUG=1
 export GUNICORN_WORKERS=4
