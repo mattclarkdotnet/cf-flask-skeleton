@@ -118,7 +118,7 @@ Once you commit and push the new .travis.yml Travis will see the commit and star
     
 ### Monitor your build
 
-Either use the travis website or the `travis monitor` command to check the progress of your build.  Once it's done you will have a new app deployed in the staging space of your cloud foundry account.
+Either use the travis website or the `travis monitor` command to check the progress of your build.  Once it's done you will have a new app deployed in the staging space of your cloud foundry account.  You can get the URL of the newly deployed app with `travis logs .2 | grep urls`
     
 ## The gory details
 
