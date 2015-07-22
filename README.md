@@ -5,7 +5,7 @@ While deploying to Cloud Foundry is incredibly easy once you get going it's not 
 * a Flask app
 * Unit tests
 * Settings controlled though environment variables alone
-* Dev and Prod manifest files with a common base manifest
+* Dev, Stage and Prod manifest files with a common base manifest
 * Travis CI test and deployment integration
 * setup scripts to:
   * set up a python 3 virtual environment correctly
@@ -115,23 +115,25 @@ This is where we specify the aspects of our app that are common across deploymen
 
 ### template_manifest_development.yml
 
-We inherit the settings from `manifest_base.yml`, and add in some specific details.  The 'space' is set to 'development', an environment variable is set to trigger the app to set its log level to debug, and we set the name to APP_NAME which manke_manifest.sh will replace with the real name later.
+We inherit the settings from `manifest_base.yml`, and add in some specific details.  An environment variable is set to trigger the app to set its log level to debug, and we set the name to APP_NAME which make_manifest.sh will replace with the real name later.
 
 ### template_manifest_staging.yml
 
-Very similar to template_manifest_development, but with the space set to 'staging' and without the APP_DEBUG environment variable set
+Very similar to template_manifest_development, but without the APP_DEBUG environment variable set
 
 ### template_manifest_production.yml
 
-Identical to the staging manifest template, except for the space name
+Identical to the staging manifest template
 
 ### .travis.yml
 
-Probably the most complex file in the project, this specifies to Travis CI how to build, test and deploy the application to production.  Some points worth calling out are:
+Probably the most complex file in the project, this specifies to Travis CI how to build, test and deploy the application to staging.  Some points worth calling out are:
 
-* `sudo: required` is needed because Travis' cloud foundry deployment mechanism can't run within a container.  This makes builds a lot slower which is a shame (TODO: see if there is a way around this)
+* `sudo: required` is needed because Travis' cloud foundry deployment mechanism can't run within a container.
 * In the `before_deploy` section we set up the runtime.txt and run make_manifest.sh to create the manifest.yml.  Note that travis will run the 'cf push' itself.
 * `edge: true` is required because the CF deployment is not available in mainline Travis.
+* `space: staging` and the other cloud foundry settings in the 'deploy' section are essentially the arguments to `cf login`.
+* Conditions are set so we only deploy the python 3.4 build, to avoid deploying the same app twice
 
 See [the travis docs](http://docs.travis-ci.com/user/deployment/cloudfoundry/) for more information on integrating Travis with Cloud Foundry
 
