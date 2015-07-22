@@ -65,11 +65,17 @@ Make sure CF knows what Python runtime you want to use by creating a 'runtime.tx
 
     $ ./setup_runtime.sh
 
+Make a local commit so that you get a unique app name:
+
+    $ git commit --allow-empty -m "committing without changes to create unique commit ID"
+
+Create a manifest.yml for your development space:
+
+    $ ./make_manifest.sh development
+
 And finally push the app:
 
-_Don't try this on a Pivotal Web Services (run.pivotal.io) account because I'm already running it there, see the section on manifests and change the name before deployment_:
-
-    $ cf push -f manifest-development.yml
+    $ cf push
     
 ## The gory details
 
@@ -99,28 +105,32 @@ Uness you give it a hint, the CF python buildpack will use the version 2.7.10 in
 
 `runtime.txt` is not part of the git repo because its exact value may vary depending on your local setup.
 
+### make_manifest.sh <space>
+
+This script processes a template manifest (named template-manifest-<space>.yml) to create the 'manifest.yml' file that 'cf push' expects, with the name of the app set to the generic app name followed by the latest git commit ID.
+
 ### manifest_base.yml
 
 This is where we specify the aspects of our app that are common across deployments.  A real app would probably have more differences between production and development in terms of scaling, but more common config for services.
 
-### manifest_development.yml
+### template_manifest_development.yml
 
-If you try to push the app to Pivotal Web Services using this manifest you will get an error because it's already running under the name 'skeleton-dev' in my space there, so you'll need to edit this file and give it a new name.
+We inherit the settings from `manifest_base.yml`, and add in some specific details.  The 'space' is set to 'development', an environment variable is set to trigger the app to set its log level to debug, and we set the name to APP_NAME which manke_manifest.sh will replace with the real name later.
 
-We inherit the settings from `manifest_base.yml`, and add in some specific details.  The 'space' is set t 'development', an environment variable is set to trigger the app to set its log level to debug, and we give the app a name which is specific to this space.  If you give an app the same name in two spaces you will get an error on deployment because every app has a 'default route' which is its name, in addition to any specific hostnames you give it (TODO: check specifics and see if this can be overridden).
+### template_manifest_staging.yml
 
-### manifest_production.yml
+Very similar to template_manifest_development, but with the space set to 'staging' and without the APP_DEBUG environment variable set
 
-If you try to push the app to Pivotal Web Services using this manifest you will get an error because it's already running under the name 'skeleton-prod' in my space there, so you'll need to edit this file and give it a new name.
+### template_manifest_production.yml
 
-We inherit the settings from `manifest_base.yml`, and add in some specific details.  The 'space' is set t 'production', and we give the app a name which is specific to this space.  If you give an app the same name in two spaces you will get an error on deployment because every app has a 'default route' which is its name, in addition to any specific hostnames you give it (TODO: check specifics and see if this can be overridden).
+Identical to the staging manifest template, except for the space name
 
 ### .travis.yml
 
 Probably the most complex file in the project, this specifies to Travis CI how to build, test and deploy the application to production.  Some points worth calling out are:
 
 * `sudo: required` is needed because Travis' cloud foundry deployment mechanism can't run within a container.  This makes builds a lot slower which is a shame (TODO: see if there is a way around this)
-* In the `before_deploy` section we set up the runtime.txt and symlink the production manifest to `manifest.yml`.  I'm not aware of any way to specify a manifest explicitly here so a symlink has to do. (TODO: enquire further)
+* In the `before_deploy` section we set up the runtime.txt and run make_manifest.sh to create the manifest.yml.  Note that travis will run the 'cf push' itself.
 * `edge: true` is required because the CF deployment is not available in mainline Travis.
 
 See [the travis docs](http://docs.travis-ci.com/user/deployment/cloudfoundry/) for more information on integrating Travis with Cloud Foundry
