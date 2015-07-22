@@ -1,5 +1,4 @@
 ---
 inherit: manifest-base.yml
 applications:
- - space: production
-   name: APP_NAME
+ - name: APP_NAME
