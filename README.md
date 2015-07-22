@@ -1,10 +1,11 @@
-# A skeleton Flask app for deployment to Cloud Foundry using Travis
+# A skeleton Flask app for continuous deployment to Cloud Foundry using Travis
 
 While deploying to Cloud Foundry is incredibly easy once you get going it's not always so easy to get everything glued together.  This project contains files and scripts to get up and running with a basic Flask app as quickly as possible.  Out of the box the skeleton provides:
 
 * a Flask app
 * Unit tests
 * Settings controlled though environment variables alone
+* App deploys named by git commits
 * Dev, Stage and Prod manifest files with a common base manifest
 * Travis CI test and deployment integration
 * setup scripts to:
@@ -15,6 +16,8 @@ While deploying to Cloud Foundry is incredibly easy once you get going it's not 
 ## Quick start
 
 _IMPORTANT: OS X users must install a more recent Python._  Cloud Foundry supports only the current and previous two minor python versions, so for python 2.7 only 2.7.8 2.7.9 and 2.7.10 are supported.  Since OS X still, bafflingly, comes with python 2.7.6, you need to install a more recent version, preferably Python 3.4.
+
+For the quickstart you will need a Cloud Foundry account.  I'll assume we're using [Pivotal Web Services](http://run.pivotal.io/).
 
 Begin by checking out the repository
 
@@ -76,6 +79,46 @@ Create a manifest.yml for your development space:
 And finally push the app:
 
     $ cf push
+    
+## Automated immutable builds
+
+The quick start got us an app deployed, but to automate that deployment we'll need a few more things:
+
+ * A forked git repo for Travis to pull from
+ * the Travis command line client
+ 
+### Travis client
+
+If you don't already have the travis command line client installed, do:
+
+`sudo gem install travis -v 1.8.0 --no-rdoc --no-ri`
+
+### Forked repository
+
+Fork the repository at https://github.com/mattclarkdotnet/cf-flask-skeleton
+
+### Set up a new project in Travis
+
+    $ git clone <your.forked.repo>
+    $ cd <your.forked.repo>
+    $ travis login
+      ...
+    $ travis enable
+
+### Update the .travis.yml with your Cloud Foundry details
+
+Open `.travis.yml` and in the `deploy:` section update the `username:` and `organization:` with your own settings.  Then run `travis encrypt --add deploy.password` to set your github password securely.
+
+### Commit and push
+
+Once you commit and push the new .travis.yml Travis will see the commit and start a build:
+
+    $ git commit -a -m "updated .travis.yml with new account settings"
+    $ git push
+    
+### Monitor your build
+
+Either use the travis website or the `travis monitor` command to check the progress of your build.  Once it's done you will have a new app deployed in the staging space of your cloud foundry account.
     
 ## The gory details
 
