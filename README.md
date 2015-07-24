@@ -15,16 +15,21 @@ While deploying to Cloud Foundry is incredibly easy once you get going it's not 
 
 ## Quick start
 
-_IMPORTANT: OS X users must install a more recent Python._  Cloud Foundry supports only the current and previous two minor python versions, so for python 2.7 only 2.7.8 2.7.9 and 2.7.10 are supported.  Since OS X still, bafflingly, comes with python 2.7.6, you need to install a more recent version, preferably Python 3.4.
+For the quickstart you will need:
 
-For the quickstart you will need a Cloud Foundry account.  I'll assume we're using [Pivotal Web Services](http://run.pivotal.io/).
+* a Cloud Foundry account; I'll assume we're using [Pivotal Web Services](http://run.pivotal.io/).
+* The cloud foundry command line client [https://github.com/cloudfoundry/cli]
+* [Virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/install.html) installed
+* A recent Python (3.4.3 and 2.7.10 were the latest at the time of writing)
+
+**IMPORTANT: OS X users must install a more recent Python.**  Cloud Foundry supports only the current and previous two minor python versions, so for python 2.7 only 2.7.8 2.7.9 and 2.7.10 are supported.  Since OS X still, bafflingly, comes with python 2.7.6, you need to install a more recent version, preferably Python 3.4.
 
 Begin by checking out the repository
 
     $ git clone https://github.com/mattclarkdotnet/cf-flask-skeleton.git
     $ cd cf-flask-skeleton
 
-Then run the setup script to create a python 3 virtual environment and install dependencies:
+Then run the setup script to create a python virtual environment and install dependencies:
   
     $ ./setup_venv.sh
     
@@ -68,7 +73,7 @@ Make sure CF knows what Python runtime you want to use by creating a 'runtime.tx
 
     $ ./setup_runtime.sh
 
-Make a local commit so that you get a unique app name:
+Make a local commit so that you get a unique app name in your manifest:
 
     $ git commit --allow-empty -m "committing without changes to create unique commit ID"
 
@@ -84,23 +89,13 @@ And finally push the app:
 
 The quick start got us an app deployed, but to automate that deployment we'll need a few more things:
 
- * A forked git repo for Travis to pull from
- * the Travis command line client
+ * A forked git repo for you to commit to and for Travis to pull from
+ * the Travis command line client: `sudo gem install travis -v 1.8.0 --no-rdoc --no-ri`
  
-### Travis client
+### Set up a new project in Travis using your fork of the repository
 
-If you don't already have the travis command line client installed, do:
-
-`sudo gem install travis -v 1.8.0 --no-rdoc --no-ri`
-
-### Forked repository
-
-Fork the repository at https://github.com/mattclarkdotnet/cf-flask-skeleton
-
-### Set up a new project in Travis
-
-    $ git clone <your.forked.repo>
-    $ cd <your.forked.repo>
+    $ git clone https://github.com/yourgithubusername/cf-flask-skeleton
+    $ cd cf-flask-skeleton
     $ travis login
       ...
     $ travis enable
