@@ -1,0 +1,10 @@
+---
+platform: linux
+
+image: docker:///python#3.4
+
+inputs:
+- name: cf-flask-skeleton
+
+run:
+  path: cf-flask-skeleton/ci/unit.sh
